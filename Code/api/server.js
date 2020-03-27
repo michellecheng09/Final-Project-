@@ -18,6 +18,7 @@ const io = socketio(server);
 let waitingPlayer = null;
 
 const players = [] 
+const lobby = []
 
 io.on('connection', (sock) => {
     players.push(new Player(sock, sock.id));
@@ -25,10 +26,11 @@ io.on('connection', (sock) => {
     sock.on('name', (name) => {
         players.forEach((player) => {
             if (player.id === sock.id) {
-                player.name = name;
+                player.playerSignedIn(name);
+                lobby.push(name)
             }
-            io.emit('name', player.name);
         });
+        io.emit('lobby', lobby);
         console.log(players);
     });
 });

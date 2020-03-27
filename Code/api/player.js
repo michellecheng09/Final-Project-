@@ -5,12 +5,13 @@ class Player {
         this.id = id;
         this.name = null;
         this.host = false;
-        this.testEmit();
     }
 
-    testEmit() {
-        this.playerData.emit('host', `Welcome ${this.id}`);
+    playerSignedIn(name) {
+        this.name = name;
+        this.playerData.emit('welcome', this.name);
     }
+
 }
 
 module.exports = Player;
