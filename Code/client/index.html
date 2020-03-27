@@ -2,10 +2,39 @@
 <html>
     <head>
         <title>Rummy-O</title>
+        <link rel="stylesheet" href="styleFile.css">
+
     </head>
     <body>
-        <ul id='events'></ul>
+
+
+        <h1 id='banner'>Welcome to Rummy-O</h1>
+
+        <br><br>
+
+        <h3>Lobby:</h3>
+        <ul id='lobby'></ul>
+
+
+        
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        
+        <form id='sign-in'>
+            <input id='name' type="text">
+            <input type="submit">
+        </form>
+
+
+
+
+
+
         <script src="/socket.io/socket.io.js"></script>
         <script src="src/client.js"></script>
     </body>
+
 </html>
