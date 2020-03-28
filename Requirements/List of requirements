@@ -1,1 +1,35 @@
+Basic Requirements 
 
+Objective: The goal of this project is to deliver a web-based working prototype of the Rummy-O tile game.
+
+ Basic Requirements
+The 2 most fundamental requirements of the product are:
+•The Rummy-O game is to be hoisted as a web application and service remote players
+•The Rummy-O game has to follow the rules described in the Rummy-O section
+
+This document primarily describes the rules of the game.
+ It is up to you to define other key features of the application such as the way users interact with the system and perhaps any other value added features like promotions or advertising. 
+
+Rules of the Rummy-O Game (Table version)
+Rummy-O is a tile game similar to the rummy card game.
+ Two to four players can play the game. There are 4 sets of tiles distinguished by four different colors. There are 13 tiles for each color numbered from 1 to 13. The tile deck also contains 2 jokers. In total there are 54 tiles in the game. 
+
+Shuffle the tiles
+Lay all the tiles face down on the table, and shuffle them around thoroughly.
+
+Select the starter
+Each player selects a tile from the shuffled mix. The players with the lowest tile play first. The order of play rotates clockwise from the beginning player. 
+
+Hand out the tiles
+Replace the beginner selection tiles, and shuffle the tiles again. Each player then selects 14 tiles. These tiles should be kept shielded from the other players.
+
+Make initial melds
+Before players may put tiles on the table, they must make melds that equal at least 25 points in one or more sets. One option for a meld is a run of three consecutive tiles in the same color, such as 10, 11 and 12 in blue. The other option is three of the same number in different colors. The number on the tile equals the amount of points it is worth. The meld must come from the tiles in the player's hand. (Note: The joker tile can take on any value and color)
+
+Try to eliminate tiles
+The object of the game is to eliminate all the tiles in a player's hand first. This is achieved by making runs and sets or by adding to other runs and sets on the table. For instance, if on the table there is a set of three 10s, another player may place a fourth 10 down. If no play can be made during a turn, the player has to pick a tile.
+Re-melding tiles
+Tiles on the board can be moved about and re-melded. The main motivation in doing is for a player to be able to play a tile from their hand. For example, if on the table there is a set of four 10s and a player has two tens of a different color in his/her hand they can use one of the tens in the board to create a set. Tiles on the board can be re-melded in any way as long as the end results are valid runs and sets. (Note: Jokers cannot be moved to other melds. They keep their value once they are played on the board)
+
+Replacing the Jokers
+A Joker that has been played on the board can be used by a player if they have the tile that the Joker represents in their hand. This tile is swapped with the Joker. The Joker was be played during that player’s turn. (Note: For sets of 3 tiles that include a Joker, the Joker can represent either of the 2 missing tile colors in the set. For example, for a set consisting of a blue 10, red 10, and a Joker, the Joker can be replaced with a black or yellow 10 and reused by the player as any other tile)
