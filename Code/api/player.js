@@ -5,6 +5,16 @@ class Player {
         this.id = id;
         this.name = null;
         this.host = false;
+        this.hand = [];
+    }
+    
+    constructor(playerData, id, host)
+    {
+        this.playerData = playerData;
+        this.id = id;
+        this.name = null;
+        this.host = host;
+        this.hand = [];
     }
 
     playerSignedIn(name) {

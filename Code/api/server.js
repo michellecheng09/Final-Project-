@@ -21,7 +21,10 @@ const players = []
 const lobby = []
 
 io.on('connection', (sock) => {
-    players.push(new Player(sock, sock.id));
+    if (players.length === 0)
+        players.push(new Player(sock, sock.id, true))
+    else
+        players.push(new Player(sock, sock.id));
 
     sock.on('name', (name) => {
         players.forEach((player) => {
@@ -33,7 +36,12 @@ io.on('connection', (sock) => {
         io.emit('lobby', lobby);
         console.log(players);
     });
+
+    sock.on('start', (data) => {
+        console.log(data);
+    })
 });
+
 
 server.listen(5000, () => {
     console.log('Server started on 5000');

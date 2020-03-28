@@ -1,16 +1,33 @@
-const onFormSubmitted = (event) => {
+// ===============
+// ==   Forms   ==
+// ===============
+
+// handles the lobby updating and start button
+const signupFormSubmit = (event) => {
     event.preventDefault();
-    const input = document.querySelector('#name')
+    const input = document.getElementById('name');
     const text = input.value;
     sock.emit('name', text);
+
+    const form = document.getElementById('sign-in');   
+    form.style.display = 'none';
+
+    const startButton = document.getElementById('start').firstElementChild;
+    startButton.style.display = 'block';
 }
 
-
+// function that fires when the game is started
+const onStartButton = (event) => {
+    event.preventDefault();
+    sock.emit('start', 'testing');
+    console.log('game started')
+}
 
 const sock = io();
 
+// clears lobby ul and creates updated li's
 sock.on('lobby', (players) => {
-    const parent = document.querySelector('#lobby');
+    const parent = document.getElementById('lobby');
     let child = parent.lastElementChild;
     while (child) {
         parent.removeChild(child);
@@ -24,11 +41,13 @@ sock.on('lobby', (players) => {
     });
 });
 
+// welcomes players
 sock.on('welcome', (name) => {
-    const parent = document.querySelector('#banner');
+    const parent = document.getElementById('banner');
     const el = document.createElement('h3');
     el.innerHTML = `Welcome ${name}`;
     parent.appendChild(el);
 })
 
-document.querySelector('#sign-in').addEventListener('submit', onFormSubmitted);
+document.getElementById('sign-in').addEventListener('submit', signupFormSubmit);
+document.getElementById('start').addEventListener('submit', onStartButton);
