@@ -19,25 +19,36 @@ let waitingPlayer = null;
 
 const players = [] 
 const lobby = []
-let requiredPlayers = 0;
+let requiredPlayers = 4;
 
 // ==========================
 // ===   Event Handling   ===
 // ==========================
 
 io.on('connection', (sock) => {
-    if (players.length === 0)
-        players.push(new Player(sock, sock.id, true))
-    else
-        players.push(new Player(sock, sock.id, false));
 
     sock.on('name', (name) => {
-        players.forEach((player) => {
+        if (players.length === 0) {
+            players.push(new Player(sock, sock.id, name, true));
+            lobby.push(name)
+        }
+        else if (players.length < requiredPlayers) {
+            players.push(new Player(sock, sock.id, name, false));
+            lobby.push(name)
+        } else {
+            while(players.length > requiredPlayers) {
+                players.pop();
+                lobby.pop();
+            }
+        }
+
+        /*
+            players.forEach((player) => {
             if (player.id === sock.id) {
                 player.playerSignedIn(name);
                 lobby.push(name)
             }
-        });
+            */
         io.emit('lobby', lobby);
 
         if(requiredPlayers == players.length) {

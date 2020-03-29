@@ -1,18 +1,13 @@
 class Player {
-    constructor(playerData, id, host)
+    constructor(playerData, id, name, host)
     {
         this.playerData = playerData;
         this.id = id;
-        this.name = null;
+        this.name = name;
         this.host = host;
         this.hand = [];
-    }
-
-    playerSignedIn(name) {
-        this.name = name;
         this.playerData.emit('welcome', {name: this.name, host: this.host});
     }
-
 }
 
 module.exports = Player;

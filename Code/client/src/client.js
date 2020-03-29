@@ -78,13 +78,14 @@ sock.on('welcome', (data) => {
 });
 
 sock.on('waiting', () => {
-    // hide number of players form
-    const form = document.getElementById('num-players');
-    //form.style.display = 'none';
-
+    const waiting = document.getElementById('waiting');
+    if(waiting) {
+        waiting.parentNode.removeChild(waiting);
+    }
     // show that players are waiting on more people to join
     const parent = document.getElementById('banner');
     const el = document.createElement('h3');
+    el.id = 'waiting'
     el.innerHTML = `Waiting on more players...`;
     parent.appendChild(el);
 });
