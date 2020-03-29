@@ -13,16 +13,6 @@ const signupFormSubmit = (event) => {
     form.style.display = 'none';
 }
 
-// function that fires when the game is started
-// don't think i need this anymore but don't wanna delete it
-/*
-const onStartButton = (event) => {
-    event.preventDefault();
-    sock.emit('start', 'testing');
-    console.log('game started')
-}
-*/
-
 // handle number of players
 const numPlayersForm = (event) => {
     event.preventDefault();
@@ -33,6 +23,10 @@ const numPlayersForm = (event) => {
 
     console.log(`Ok were gonna have ${numPlayers} players`);
 };
+
+// ===========================
+// ===   Event Listeners   ===
+// ===========================
 
 const sock = io();
 
@@ -54,19 +48,24 @@ sock.on('lobby', (players) => {
 
 // welcomes players
 sock.on('welcome', (data) => {
+    // writes welcome message
     const parent = document.getElementById('banner');
     const el = document.createElement('h3');
     el.innerHTML = `Welcome ${data.name}`;
     parent.appendChild(el);
 
+    // gives host player (p1) the ability to choose a number of players
     if(data.host) {
         const form = document.createElement('form');
         form.className = 'form'
         form.id = 'num-players'
         form.addEventListener('submit', numPlayersForm);
 
+        // this input could also be changed to a dropdown but idk
         const number = document.createElement('input');
         number.setAttribute('type', 'number');
+        number.setAttribute('min', 2);
+        number.setAttribute('max', 4);
         number.id = 'pnum'
 
         const submit = document.createElement('input');
@@ -76,6 +75,18 @@ sock.on('welcome', (data) => {
         form.appendChild(number);
         form.appendChild(submit);
     }
+});
+
+sock.on('waiting', () => {
+    // hide number of players form
+    const form = document.getElementById('num-players');
+    //form.style.display = 'none';
+
+    // show that players are waiting on more people to join
+    const parent = document.getElementById('banner');
+    const el = document.createElement('h3');
+    el.innerHTML = `Waiting on more players...`;
+    parent.appendChild(el);
 });
 
 sock.on('start', () => {

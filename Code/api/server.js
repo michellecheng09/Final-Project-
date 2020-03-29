@@ -21,6 +21,10 @@ const players = []
 const lobby = []
 let requiredPlayers = 0;
 
+// ==========================
+// ===   Event Handling   ===
+// ==========================
+
 io.on('connection', (sock) => {
     if (players.length === 0)
         players.push(new Player(sock, sock.id, true))
@@ -36,16 +40,21 @@ io.on('connection', (sock) => {
         });
         io.emit('lobby', lobby);
 
-        console.log(players.length == requiredPlayers);
-        console.log(`Number of players: ${players.length}\nRequired number: ${requiredPlayers}`);
         if(requiredPlayers == players.length) {
             io.emit('start'); 
             console.log('everyone is here')
+        } else { 
+            io.emit('waiting'); 
         }
+
     });
 
     sock.on('num players', (data) => {
         requiredPlayers = data;
+        if(requiredPlayers == players.length) {
+            io.emit('start');
+            console.log('the lobby is now full')
+        }
     })
 });
 
