@@ -21,7 +21,7 @@ const numPlayersForm = (event) => {
 
     sock.emit('num players', numPlayers);
 
-    console.log(`Ok were gonna have ${numPlayers} players`);
+    console.log(`The game has ${numPlayers} players`);
 };
 
 // ===========================
@@ -56,6 +56,8 @@ sock.on('welcome', (data) => {
 
     // gives host player (p1) the ability to choose a number of players
     if(data.host) {
+
+        //If 
         const form = document.createElement('form');
         form.className = 'form'
         form.id = 'num-players'
@@ -77,6 +79,8 @@ sock.on('welcome', (data) => {
     }
 });
 
+
+//Displays message as long as the number of players is less than the required number of players set by host
 sock.on('waiting', () => {
     const waiting = document.getElementById('waiting');
     if(waiting) {
@@ -90,6 +94,7 @@ sock.on('waiting', () => {
     parent.appendChild(el);
 });
 
+//When all players have arrived the start message is emitted from the server
 sock.on('start', () => {
     console.log('players are here');
 });
