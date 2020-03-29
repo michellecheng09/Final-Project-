@@ -11,17 +11,28 @@ const signupFormSubmit = (event) => {
 
     const form = document.getElementById('sign-in');   
     form.style.display = 'none';
-
-    const startButton = document.getElementById('start').firstElementChild;
-    startButton.style.display = 'block';
 }
 
 // function that fires when the game is started
+// don't think i need this anymore but don't wanna delete it
+/*
 const onStartButton = (event) => {
     event.preventDefault();
     sock.emit('start', 'testing');
     console.log('game started')
 }
+*/
+
+// handle number of players
+const numPlayersForm = (event) => {
+    event.preventDefault();
+    const input = document.getElementById('pnum');
+    const numPlayers = input.value;
+
+    sock.emit('num players', numPlayers);
+
+    console.log(`Ok were gonna have ${numPlayers} players`);
+};
 
 const sock = io();
 
@@ -42,12 +53,33 @@ sock.on('lobby', (players) => {
 });
 
 // welcomes players
-sock.on('welcome', (name) => {
+sock.on('welcome', (data) => {
     const parent = document.getElementById('banner');
     const el = document.createElement('h3');
-    el.innerHTML = `Welcome ${name}`;
+    el.innerHTML = `Welcome ${data.name}`;
     parent.appendChild(el);
-})
+
+    if(data.host) {
+        const form = document.createElement('form');
+        form.className = 'form'
+        form.id = 'num-players'
+        form.addEventListener('submit', numPlayersForm);
+
+        const number = document.createElement('input');
+        number.setAttribute('type', 'number');
+        number.id = 'pnum'
+
+        const submit = document.createElement('input');
+        submit.setAttribute('type', 'submit');
+
+        parent.appendChild(form);
+        form.appendChild(number);
+        form.appendChild(submit);
+    }
+});
+
+sock.on('start', () => {
+    console.log('players are here');
+});
 
 document.getElementById('sign-in').addEventListener('submit', signupFormSubmit);
-document.getElementById('start').addEventListener('submit', onStartButton);

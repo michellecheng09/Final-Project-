@@ -19,12 +19,13 @@ let waitingPlayer = null;
 
 const players = [] 
 const lobby = []
+let requiredPlayers = 0;
 
 io.on('connection', (sock) => {
     if (players.length === 0)
         players.push(new Player(sock, sock.id, true))
     else
-        players.push(new Player(sock, sock.id));
+        players.push(new Player(sock, sock.id, false));
 
     sock.on('name', (name) => {
         players.forEach((player) => {
@@ -34,11 +35,17 @@ io.on('connection', (sock) => {
             }
         });
         io.emit('lobby', lobby);
-        console.log(players);
+
+        console.log(players.length == requiredPlayers);
+        console.log(`Number of players: ${players.length}\nRequired number: ${requiredPlayers}`);
+        if(requiredPlayers == players.length) {
+            io.emit('start'); 
+            console.log('everyone is here')
+        }
     });
 
-    sock.on('start', (data) => {
-        console.log(data);
+    sock.on('num players', (data) => {
+        requiredPlayers = data;
     })
 });
 
