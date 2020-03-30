@@ -1,6 +1,6 @@
 //Each tile has a color and a number associated with it
 class Tile{
-    constructor(color, number)
+    constructor(colour, number)
     {
         this.colour = colour;
         this.number = number;

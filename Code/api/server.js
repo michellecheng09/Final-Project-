@@ -5,8 +5,8 @@ const socketio = require('socket.io');
 //Add the imported classes to the server
 const Rummy = require('./game');
 const Player =  require('./player');
-const Tile= require('./Tile');
-const Deck= require('./Deck')
+const Tile = require('./Tile');
+const Deck = require('./Deck')
 
 const app = express();
 
@@ -18,20 +18,21 @@ const server = http.createServer(app);
 
 const io = socketio(server);
 
-let waitingPlayer = null;
-
 const players = [] 
 const lobby = []
 let requiredPlayers = 4;
+const deck = new Deck();
 
 // ==========================
 // ===   Event Handling   ===
 // ==========================
 
-io.on('connection', (sock) => {
 
+// for reference, there is a small error in the required players handling. Need to figure out some
+// sort of solution for when a number hasn't been set yet and >= 4 people have joined
+io.on('connection', (sock) => {
+    
     sock.on('name', (name) => {
-        
         if (players.length === 0) {
             players.push(new Player(sock, sock.id, name, true));
             lobby.push(name)
@@ -60,8 +61,6 @@ io.on('connection', (sock) => {
         requiredPlayers = data;
         if(requiredPlayers == players.length) {
             io.emit('start');
-            console.log(players);
-            //console.log('the lobby is now full')
         }
     })
 });

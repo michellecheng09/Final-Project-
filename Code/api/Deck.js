@@ -1,22 +1,27 @@
 //Initialize the deck of tiles
-class Deck {
-    contructor() {
+class Deck 
+{
+    constructor() {
+        const Tile = require('./Tile');
         //Four player game works with 108
-        const Deck=[];
-        const color=["Red", "Blue", "Yellow", "Green"];
-        for (var i = 0; i <= color.length; i++) 
-        {
-            for (var j = 0; j < 26; j++) 
-            {
-                Deck.push(new Tile(color[i],j));
-            }
-        }
+        this.deck=[];
+        const colour=["Red", "Blue", "Yellow", "Green"];
 
+        for (let r = 0; r < 2; r++)
+        {
+            for (var i = 0; i < colour.length; i++) 
+            {
+                for (var j = 1; j <= 13; j++) 
+                {
+                    this.deck.push(new Tile(colour[i],j));
+                }
+            }
+        };
 
         //Add jokers
-        for (var i = 0; i < 4; i++) 
+        for (var i = 1; i <= 4; i++) 
         {
-        	Deck.push(new Tile("joker", i));
+            this.deck.push(new Tile("joker", i));
         }
     }
 }
