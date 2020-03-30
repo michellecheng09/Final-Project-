@@ -50,17 +50,19 @@ sock.on('lobby', (players) => {
 sock.on('welcome', (data) => {
     // writes welcome message
     const parent = document.getElementById('banner');
-    const el = document.createElement('h3');
+    const el = document.createElement('h4');
     el.innerHTML = `Welcome ${data.name}`;
     parent.appendChild(el);
 
     // gives host player (p1) the ability to choose a number of players
     if(data.host) {
 
-        //If 
+        document.getElementById('host').innerHTML = "You're the Host"
+
+        //If player is true then create a form to get number of players
         const form = document.createElement('form');
-        form.className = 'form'
-        form.id = 'num-players'
+        form.className = 'form';
+        form.id = 'num-players';
         form.addEventListener('submit', numPlayersForm);
 
         // this input could also be changed to a dropdown but idk
@@ -68,7 +70,7 @@ sock.on('welcome', (data) => {
         number.setAttribute('type', 'number');
         number.setAttribute('min', 2);
         number.setAttribute('max', 4);
-        number.id = 'pnum'
+        number.id = 'pnum';
 
         const submit = document.createElement('input');
         submit.setAttribute('type', 'submit');
@@ -87,8 +89,8 @@ sock.on('waiting', () => {
         waiting.parentNode.removeChild(waiting);
     }
     // show that players are waiting on more people to join
-    const parent = document.getElementById('banner');
-    const el = document.createElement('h3');
+    const parent = document.getElementById('wait');
+    const el = document.createElement('p');
     el.id = 'waiting'
     el.innerHTML = `Waiting on more players...`;
     parent.appendChild(el);

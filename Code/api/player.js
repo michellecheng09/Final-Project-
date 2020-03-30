@@ -6,8 +6,7 @@ class Player {
         this.name = name;
         this.host = host;
         this.hand = [];
-    	if(host==true)
-        	this.playerData.emit('welcome', {name: this.name, host: this.host});
+    	this.playerData.emit('welcome', {name: this.name, host: this.host});
     }
 }
 
