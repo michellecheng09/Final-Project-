@@ -35,12 +35,10 @@ io.on('connection', (sock) => {
         if (players.length === 0) {
             players.push(new Player(sock, sock.id, name, true));
             lobby.push(name)
-        }
-        else if (players.length < requiredPlayers) {
+        } else if (players.length < requiredPlayers) {
             players.push(new Player(sock, sock.id, name, false));
             lobby.push(name)
-        } else 
-        {
+        } else {
             while(players.length > requiredPlayers) {
                 players.pop();
                 lobby.pop();
@@ -56,14 +54,14 @@ io.on('connection', (sock) => {
         } else { 
             io.emit('waiting'); 
         }
-
     });
 
     sock.on('num players', (data) => {
         requiredPlayers = data;
         if(requiredPlayers == players.length) {
             io.emit('start');
-            console.log('the lobby is now full')
+            console.log(players);
+            //console.log('the lobby is now full')
         }
     })
 });
