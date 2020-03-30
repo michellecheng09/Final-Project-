@@ -24,6 +24,10 @@ class Deck
             this.deck.push(new Tile("joker", i));
         }
     }
+
+    printDeck() {
+        return this.deck;
+    }
 }
 
 module.exports = Deck;
